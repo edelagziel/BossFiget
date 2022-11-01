@@ -8,6 +8,7 @@ public class CamraShke : MonoBehaviour
     public float ShakeTime;
     public float ShkeRange;
     Vector3 originalPos;
+    public float ShkeSpeed;
     
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,7 @@ public class CamraShke : MonoBehaviour
             StartCoroutine(CamraSaking()); 
         }
     }
-    IEnumerator CamraSaking()
+   public IEnumerator CamraSaking()
     {
         float elapseTime = 0;
         while(elapseTime< ShakeTime)
@@ -32,7 +33,7 @@ public class CamraShke : MonoBehaviour
              Vector3 pos = originalPos + Random.insideUnitSphere * ShkeRange;
            // Vector3 pos = new Vector3(Random.Range(originalPos.x + 2, originalPos.x - 2), Random.Range(originalPos.y + 2, originalPos.y - 2),0);
             pos.z = originalPos.z;
-            CamtraTransform.position = pos;
+            CamtraTransform.position = Vector3.Lerp(originalPos, pos, ShkeSpeed);
             elapseTime += Time.deltaTime;
             yield return null;
         }
